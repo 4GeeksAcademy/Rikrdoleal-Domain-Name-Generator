@@ -8,25 +8,37 @@ import "./assets/img/4geeks.ico";
 window.onload = () => {
   //write your code here
 
-  let pronoun = ["the", "my"];
+  let pronoun = ["the", "my", "your"];
   let adjective = ["awesome", "big", "secret", "smart"];
   let noun = ["page", "space", "blog", "post"];
   let extension = [".net", ".com", ".es", ".ve"];
-  let domainName = [];
-  let ramdonDomain;
+  let result;
+  let randomDomain = [];
 
-  function getRandomName(array) {
-    return array[Math.floor(Math.random() * array.length)];
-  }
-
-  function generateDomainName() {
-    let arrays = [pronoun, adjective, noun, extension];
-    for (let i = 0; i < arrays.length; i++) {
-      domainName.push(getRandomName(arrays[i]));
+  function getRandomName() {
+    for (let i = 0; i < pronoun.length; i++) {
+      for (let j = 0; j < adjective.length; j++) {
+        for (let k = 0; k < noun.length; k++) {
+          for (let l = 0; l < extension.length; l++) {
+            result = `${pronoun[i]}${adjective[j]}${noun[k]}${extension[l]}`;
+            randomDomain.push(result);
+            console.log("www." + result);
+            // document.getElementById("domain").innerHTML = "www." + result;
+          }
+        }
+      }
     }
-    ramdonDomain = domainName.join("");
-    return ramdonDomain;
   }
-  console.log(generateDomainName());
-  document.getElementById("domain").innerHTML = ramdonDomain;
+  getRandomName();
+
+  let printRandomDomain = () => {
+    let randomNumber = Math.floor(Math.random() * result.length * 10);
+    return randomDomain[randomNumber];
+  };
+  //La finalidad de este boton es mostrar en pantalla de forma aleatoria una de las posibles combinaciones de dominio
+  //que se han impreso en la consola
+  document.querySelector("#btn").addEventListener("click", () => {
+    document.querySelector("#domain").innerHTML = "www." + printRandomDomain();
+  });
+  document.getElementById("domain").innerHTML = "www." + printRandomDomain();
 };
